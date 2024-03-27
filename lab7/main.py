@@ -15,12 +15,17 @@ def generate(n):
             if j not in G[i]:
                 G[i].append(j)
                 G[j].append(i)
+
+    cnt = 0
+    for i in range(len(G)):
+        for j in range(len(G[i])):
+            cnt += 1
+    print("edges:", cnt)
     return G
 
 
-def first(n):
+def first(n, G):
     iters = 0
-    G = generate(n)
     u = 0
     q = Queue()
     q.put(u)
@@ -28,6 +33,7 @@ def first(n):
     dist[u] = 0
     while not q.empty():
         i = q.get()
+        iters += 1
         for j in G[i]:
             iters += 1
             if dist[j] == float('inf'):
@@ -37,16 +43,35 @@ def first(n):
     print(iters)
 
 
-def second(n):
-    G = generate(n)
-    
+def second(n, G):
+    iters = 0
+    u = 0
+    dist = [float('inf')] * n
+    used = [False] * n
+    dist[u] = 0
+    for i in range(n):
+        v = None
+        for j in range(n):
+            iters += 1
+            if (not used[j]) and (v is None or dist[j] < dist[v]):
+                v = j
+        if dist[v] == float('inf'):
+            break
+        used[v] = True
+        for e in G[v]:
+            iters += 1
+            if dist[v] + 1 < dist[e]:
+                dist[e] = dist[v] + 1
+    print(dist)
+    print(iters)
 
 
 def main():
-    for n in [1000]:
+    for n in [1000, 2700, 7300, 20000, 53000]:
+        G = generate(n)
         print('Vertices:', n)
-        first(n)
-        second(n)
+        first(n, G)
+        second(n, G)
 
 
 main()
