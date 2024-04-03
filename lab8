@@ -1,0 +1,42 @@
+#n = 10
+#C = [[0, 0, 37, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 27, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 30, 23, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 28, 31, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 16, 15, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 22, 20, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 14, 0, 26],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 25],
+#     [0, 12, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+n = 5
+C = [[0, 3, 0, 0, 3],
+     [0, 0, 6, 0, 0],
+     [0, 0, 0, 0, 2],
+     [4, 3, 0, 0, 0],
+     [0, 0, 0, 0, 0]]
+max_iter = 2**(n - 2)
+max_c, R = 0, []
+for i in range(max_iter):
+    bin_i = bin(i)[2:].zfill(n - 2) + '0' + '1'
+    cur_c = 0
+    for j in range(n):
+        for k in range(n):
+            if bin_i[j] == '0' and bin_i[k] == '1':
+                cur_c += C[j][k]
+            if bin_i[j] == '1' and bin_i[k] == '0':
+                cur_c -= C[j][k]
+    if cur_c > max_c:
+        max_c = cur_c
+        R = bin_i
+print('Maximum flow:', max_c)
+A, B = [], []
+map = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8: 'S', 9: 'T'}
+for i in range(n):
+    if R[i] == '0':
+        A.append(map[i])
+    else:
+        B.append(map[i])
+print('Min inclusion:')
+print('A:', A)
+print('B:', B)
