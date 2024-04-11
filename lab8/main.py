@@ -104,29 +104,7 @@ def fordFulkerson(V, mapper):
             print(mapper[i], end=' ')
     print()
 
-def findMinCut(V, maxFlow, mapper):
-    max_iter = 2**(len(V) - 2)
-    for i in range(max_iter):
-        cur_bin = '0' + bin(i)[2:].zfill(len(V) - 2) + '1'
-        cur_c = 0
-        for i in range(len(V)):
-            for j in range(len(V)):
-                if cur_bin[i] != cur_bin[j] and V[i][j][0] != 0 and V[i][j][2] != -1:
-                    if cur_bin[i] == '0':
-                        cur_c += V[i][j][0]
-                    else:
-                        cur_c -= V[i][j][0]
-        if cur_c == maxFlow:
-            A, B = [], []
-            for i in range(len(V)):
-                if cur_bin[i] == '0':
-                    A.append(mapper[i])
-                else:
-                    B.append(mapper[i])
-            print('Минимальный поток:')
-            print('A:', A)
-            print('B:', B)
-            break
+
 def main():
     mapper = {0: 'S', 1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'T'}
     print('Заданный граф:')
