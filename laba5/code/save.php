@@ -1,5 +1,4 @@
 <?php
-include 'vendor/autoload.php';
 
 function redirectToHome(): void 
 {
@@ -23,7 +22,7 @@ if (mysqli_connect_errno()) {
     printf('Подключение к серверу MySQL невозможно. Код ошибки: %s\n', mysqli_connect_error());
     exit;
 } else {
-    $mysqli->query("INSERT INTO ad (email, title, description, category) VALUES($email, $titile, $desc, $category)");
+    $mysqli->query("INSERT INTO ad (email, title, description, category) VALUES('$email', '$title', '$desc', '$category')");
 }
 
 redirectToHome();

@@ -48,7 +48,7 @@
 			printf('Подключение к серверу MySQL невозможно. Код ошибки: %s\n', mysqli_connect_error());
 			exit;
 		    }
-		    if ($result = $myslqi->query('SELECT * FROM ad ORDER BY created DESC')) {
+		    if ($result = $mysqli->query('SELECT * FROM ad ORDER BY created DESC')) {
 			while ($row = $result->fetch_assoc()){ ?>
 		            <tr>
 			        <td><?php echo $row['email'];?></td>
